@@ -57,7 +57,7 @@ services:
 
   app:
     #build: docker/app
-    image: viktor68/envstack
+    image: viktor68/envstack:ubuntu16
     restart: always
     working_dir: /var/www/html
     ports:
