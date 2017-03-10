@@ -9,7 +9,7 @@ services:
     ports:
       - "27027:27017"
     volumes:
-      - data/mongo:/data/db
+      - /data/mongo:/data/db
 
   mariadb:
     restart: always
@@ -56,7 +56,8 @@ services:
       - /data/elasticsearch:/usr/share/elasticsearch/data
 
   app:
-    build: docker/app
+    #build: docker/app
+    image: viktor68/envstack
     restart: always
     working_dir: /var/www/html
     ports:
