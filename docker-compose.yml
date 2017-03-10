@@ -1,0 +1,88 @@
+version: '2'
+
+services:
+  mongo:
+    restart: always
+    image: mongo:3.2
+    expose:
+      - "27017"
+    ports:
+      - "27027:27017"
+    volumes:
+      - data/mongo:/data/db
+
+  mariadb:
+    restart: always
+    image: mariadb:latest
+    expose:
+      - "3306"
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data/mysql:/docker-entrypoint-initdb.d
+      - /data/mysql:/var/lib/mysql
+    env_file:
+        - config/mysql/laravel.env
+
+  queue:
+    restart: always
+    image: rabbitmq:3-management
+    ports:
+      - "15674:15672"
+      - "5674:5672"
+    volumes:
+      - /data/rabbitmq:/var/lib/rabbitmq
+
+  redis:
+    restart: always
+    image: redis:latest
+    ports:
+      - "6389:6379"
+    volumes:
+      - /data/redis:/data
+
+  elasticsearch:
+    image: elasticsearch:2.3
+    restart: always
+    expose:
+      - "9200"
+      - "9300"
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    env_file:
+      - variables.env
+    volumes:
+      - /data/elasticsearch:/usr/share/elasticsearch/data
+
+  app:
+    build: docker/app
+    restart: always
+    working_dir: /var/www/html
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./app/code:/var/www/html
+      - ./app/cache:/var/www/cache
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./app/logs:/var/log/nginx
+    depends_on:
+      - mariadb
+      - queue
+      - redis
+      - elasticsearch
+    env_file:
+      - variables.env
+
+volumes:
+  mongo:
+    driver: local
+  queue:
+    driver: local
+  mariadb:
+    driver: local
+  redis:
+    driver: local
+  elasticsearch:
+    driver: local
