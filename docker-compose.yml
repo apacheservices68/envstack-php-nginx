@@ -9,7 +9,7 @@ services:
     ports:
       - "27027:27017"
     volumes:
-      - /data/mongo:/data/db
+      - ./data/mongo:/data/db
 
   mariadb:
     restart: always
@@ -20,7 +20,7 @@ services:
       - "3307:3306"
     volumes:
       - ./data/mysql:/docker-entrypoint-initdb.d
-      - /data/mysql:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     env_file:
         - config/mysql/laravel.env
 
@@ -31,7 +31,7 @@ services:
       - "15674:15672"
       - "5674:5672"
     volumes:
-      - /data/rabbitmq:/var/lib/rabbitmq
+      - ./data/rabbitmq:/var/lib/rabbitmq
 
   redis:
     restart: always
@@ -39,7 +39,7 @@ services:
     ports:
       - "6389:6379"
     volumes:
-      - /data/redis:/data
+      - ./data/redis:/data
 
   elasticsearch:
     image: elasticsearch:2.3
@@ -53,15 +53,13 @@ services:
     env_file:
       - variables.env
     volumes:
-      - /data/elasticsearch:/usr/share/elasticsearch/data
-
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
   app:
-    #build: docker/app
-    image: viktor68/envstack:ubuntu16
+    build: docker/app
     restart: always
     working_dir: /var/www/html
     ports:
-      - "80:80"
+      - "8081:80"
       - "443:443"
     volumes:
       - ./app/code:/var/www/html

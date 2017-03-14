@@ -1,3 +1,15 @@
 composer.lock
 variables.env
 .idea
+data
+app/logs/
+.gitignore
+docker/app/Dockerfile.bk
+app/cache/
+app/code/laravelfivedotfour/
+config/mongo/
+config/rabbitmq/
+config/redis/
+docker/app/installers
+docker/app/Makefile
+docker/

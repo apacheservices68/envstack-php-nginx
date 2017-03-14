@@ -5,5 +5,4 @@
  * Date: 06/03/2017 - Time: 13:56
  * Version: 1.0
  */
-#phpinfo();
-echo "123";
+phpinfo();

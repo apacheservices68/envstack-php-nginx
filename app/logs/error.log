@@ -1374,3 +1374,11 @@
 2017/03/10 02:37:45 [emerg] 453#453: "daemon" directive is duplicate in /etc/nginx/nginx.conf:88
 2017/03/10 02:37:47 [emerg] 473#473: "daemon" directive is duplicate in /etc/nginx/nginx.conf:88
 2017/03/10 02:37:48 [emerg] 493#493: "daemon" directive is duplicate in /etc/nginx/nginx.conf:88
+2017/03/14 07:56:05 [error] 69#69: *1 FastCGI sent in stderr: "PHP message: PHP Warning:  phpinfo(): Invalid date.timezone value 'UTC', we selected the timezone 'UTC' for now. in /var/www/html/index.php on line 8
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /var/www/html/index.php:0
+PHP message: PHP   2. phpinfo() /var/www/html/index.php:8" while reading response header from upstream, client: 172.21.0.1, server: laravel.viktor, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "laravel.viktor:8081"
+2017/03/14 07:56:05 [error] 69#69: *1 FastCGI sent in stderr: "PHP message: PHP Warning:  phpinfo(): Invalid date.timezone value 'UTC', we selected the timezone 'UTC' for now. in /var/www/html/index.php on line 8
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /var/www/html/index.php:0
+PHP message: PHP   2. phpinfo() /var/www/html/index.php:8" while reading response header from upstream, client: 172.21.0.1, server: laravel.viktor, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "laravel.viktor:8081", referrer: "http://laravel.viktor:8081/"
