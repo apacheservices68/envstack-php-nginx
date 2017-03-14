@@ -12,4 +12,3 @@ config/rabbitmq/
 config/redis/
 docker/app/installers
 docker/app/Makefile
-docker/

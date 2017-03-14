@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+EMPTY=$([ $(ls -a /var/www | wc -l) -eq 2 ] && echo 'true' || echo 'false')
+
+if [ $EMPTY == 'true' ]; then
+    echo "No files found in /var/www, attempting to get lock"
+    (
+        if flock -n 9; then
+            echo 'Got lock - installing virtual environment'
+            mkdir public
+            cp -r /usr/src/* /var/www
+        else
+            echo 'No lock, exiting'
+            exit
+        fi
+    ) 9>/var/www/alockfile
+    
+    rm -f /var/www/alockfile
+fi
