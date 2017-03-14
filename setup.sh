@@ -7,3 +7,4 @@ mkdir -p data/nginx
 mkdir -p data/rabbitmq
 mkdir -p data/redis
 mkdir -p app/logs
+mv variables.env.example variables.env
